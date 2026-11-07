@@ -1,0 +1,73 @@
+/*
+ * PLANO DEL JARDÍN · dónde va cada marca
+ * --------------------------------------
+ * El dibujo del plano sale del relevamiento a pie de septiembre de 2026: es el perímetro
+ * alambrado del Jardín, en una cuadrícula de 56 × 68 (cada cuadrícula mide unos 2 × 2 m).
+ * Este archivo solo dice DÓNDE va cada marca.
+ *
+ * CÓMO UBICAR UN LUGAR
+ *   1. Abrí el plano en el sitio y tocá «Ver cuadrícula».
+ *   2. Tocá el lugar en el plano: abajo aparece, por ejemplo, «Columna 15 · Fila 45».
+ *   3. Escribí esos dos números en «col» y «fila» del lugar, acá abajo, y guardá («Commit changes»).
+ *   Columnas de 1 a 56, de izquierda a derecha. Filas de 1 a 68, de abajo hacia arriba
+ *   (igual que en el relevamiento). Se pueden usar medios (fila: 44.5 = entre la 44 y la 45).
+ *   Fuera del alambrado: columna 0 o negativa = a la izquierda de la columna 1 (calle interna);
+ *   fila 69 o más = arriba de la fila 68 (hacia la Ruta 40).
+ *   Mientras un lugar tenga col: null, no aparece en el plano.
+ *
+ * Cambiá solo los números (o null) y los textos entre comillas, y no borres las comas del final.
+ * NO se publica la ubicación de especies sensibles a la recolección (por ejemplo, las orquídeas).
+ */
+window.PLANO = {
+
+  lugares: [
+    // SECTORES (carteles C1). En el plano llevan el número del código: S-01 → 1.
+    { codigo: "S-01", tipo: "sector", nombre: "Talar bonaerense", col: 30, fila: 51 },
+    { codigo: "S-02", tipo: "sector", nombre: "Vivero de nativas", col: 31, fila: 11 },   // invernadero grande, en uso
+    { codigo: "S-03", tipo: "sector", nombre: "Huerta agroecológica", col: 40, fila: 16 },
+    { codigo: "S-04", tipo: "sector", nombre: "Estanque", col: 41, fila: 38 },
+    { codigo: "S-05", tipo: "sector", nombre: "Aromáticas y medicinales", col: 21, fila: 52 },
+    { codigo: "S-06", tipo: "sector", nombre: "Compostera", col: 50, fila: 6 },
+
+    // DENTRO DEL VIVERO (en el plano, con letra)
+    { codigo: "inv-chico", tipo: "referencia", letra: "a", nombre: "Invernadero chico (en mantenimiento)", col: 41, fila: 6 },
+    { codigo: "palets", tipo: "referencia", letra: "b", nombre: "Ejemplares grandes sobre palets", col: 31, fila: 6 },
+
+    // PANELES INTERPRETATIVOS (C2) Y TÓTEMS DIRECCIONALES (B1): todavía no están instalados.
+    // Cuando estén, se cargan col y fila. Los tótems no se dibujan: con su QR, el plano marca «Estás acá».
+    { codigo: "P-01", tipo: "panel", nombre: "Panel Mariposario nativo", col: null, fila: null },
+    { codigo: "P-02", tipo: "panel", nombre: "Panel Centinelas de Nativas", col: null, fila: null },
+    { codigo: "T-01", tipo: "totem", nombre: "Tótem direccional 1", col: null, fila: null },
+    { codigo: "T-02", tipo: "totem", nombre: "Tótem direccional 2", col: null, fila: null },
+
+    // SERVICIOS
+    { codigo: "banos", tipo: "servicio", icono: "banos", nombre: "Baños mixtos y accesibles",
+      nota: "En el edificio principal, cruzando la calle interna", col: -5, fila: 26 },
+    { codigo: "agua-1", tipo: "servicio", icono: "agua", nombre: "Agua potable", nota: "Frente a la puerta del invernadero grande", col: 24, fila: 11 },
+    { codigo: "agua-2", tipo: "servicio", icono: "agua", nombre: "Agua potable", nota: "Antes de la entrada a la compostera", col: 45, fila: 11 },
+    { codigo: "agua-3", tipo: "servicio", icono: "agua", nombre: "Agua potable", nota: "Del lado de afuera de la huerta", col: 37, fila: 16 },
+    { codigo: "agua-4", tipo: "servicio", icono: "agua", nombre: "Agua potable", nota: "En la zona forestada más joven", col: 46, fila: 26 },
+    { codigo: "agua-5", tipo: "servicio", icono: "agua", nombre: "Agua potable", nota: "Junto a la vieja cancha de pelota paleta", col: 8, fila: 43 },
+    { codigo: "agua-6", tipo: "servicio", icono: "agua", nombre: "Agua potable", nota: "En el borde del cantero", col: 9, fila: 58 },
+    { codigo: "agua-7", tipo: "servicio", icono: "agua", nombre: "Agua potable", nota: "En el borde del cantero", col: 20, fila: 57 },
+
+    // ACCESOS
+    { codigo: "ingreso", tipo: "acceso", nombre: "Ingreso principal: tranquera sobre la Ruta 40", rotulo: ["Ingreso", "principal"], col: -2, fila: 68 },
+    { codigo: "porton-1", tipo: "puerta", nombre: "Portón doble hoja, desde la calle interna", col: 1, fila: 44.5 },
+    { codigo: "puerta", tipo: "puerta", nombre: "Puerta, desde la calle interna", col: 1, fila: 33 },
+    { codigo: "porton-2", tipo: "puerta", nombre: "Portón doble hoja, desde la calle interna", col: 1, fila: 21.5 },
+    { codigo: "bosch", tipo: "acceso", nombre: "Acceso peatonal por la calle Gral. Bosch", col: 56, fila: 13 },
+
+    // TRANSPORTE (afuera del alambrado, hacia la Ruta 40)
+    { codigo: "parada", tipo: "parada", nombre: "Parada de colectivos 322 y 136", nota: "Techada, con dos asientos, en la vereda de la Ruta 40", col: 43.5, fila: 73.8 },
+    { codigo: "paso-nivel", tipo: "cruce", nombre: "Paso a nivel de Ruta 40 y Gral. Bosch", nota: "Para cruzar las vías y la ruta desde la bicisenda",
+      rotulo: "Paso a nivel", rotuloLado: "izq", col: 59.5, fila: 77.7 },
+  ],
+
+  // EJEMPLARES DE LA COLECCIÓN EN EL PLANO (para «Dónde está» en la ficha de cada especie)
+  //   Árboles: el número de punto del plano. Con «Ver cuadrícula», al tocar un árbol aparece su
+  //   número; por ejemplo:   "A-71": ["ar123", "ar245"],
+  //   Otras plantas: un lugar; por ejemplo:   "H-12": [{ col: 20, fila: 30 }],
+  ejemplares: {
+  },
+};
