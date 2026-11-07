@@ -1,60 +1,68 @@
-# La colección · Jardín Botánico Municipal «Florencio Malatesta»
+# Jardín Botánico Municipal «Florencio Malatesta» · sitio oficial
 
-Ficha de cada especie señalizada del Jardín (Espacio Quinta Devoto, Marcos Paz). Los QR de las
-etiquetas (D1) y de las fichas A5 (D2) llevan acá, por ejemplo:
-`https://jbflormalatesta.github.io/?A-71`.
+Sitio del Jardín Botánico Municipal «Florencio Malatesta» (Dirección de Biodiversidad y Ecología
+Urbana · Subsecretaría de Ambiente · Municipalidad de Marcos Paz). Es un sitio estático: páginas HTML,
+una hoja de estilos y un poco de JavaScript, sin base de datos ni compilación. Lo que está en este
+repositorio es exactamente lo que se publica.
 
-> **No cambies el nombre de la cuenta ni el de este repositorio.** Las 312 piezas impresas
-> apuntan a esta dirección: si cambia, los QR dejan de funcionar.
+> **No cambies el nombre de la cuenta ni el del repositorio.** Los QR de la cartelería impresa
+> apuntan a `https://jbflormalatesta.github.io/`: si la dirección cambia, dejan de funcionar.
 
-## Publicarlo (se hace una sola vez)
+## Qué se edita y dónde
 
-1. Crear la cuenta en <https://github.com/signup> con el mail del Jardín y el nombre de usuario
-   **jbflormalatesta**. Confirmar el mail.
-2. Botón **+** (arriba a la derecha) → **New repository**. Nombre exacto:
-   **jbflormalatesta.github.io**. Dejarlo en **Public** y tocar **Create repository**.
-3. En el repositorio vacío, tocar **uploading an existing file**. Descomprimir el ZIP en la
-   computadora, abrir la carpeta, seleccionar todo lo que tiene adentro (`index.html`,
-   `especies.js`, `404.html`, `README.md` y las carpetas `img` y `fotos`) y arrastrarlo a la
-   página. Esperar a que suba todo y tocar **Commit changes**.
-4. **Settings** → **Pages**. En *Build and deployment*, *Source*: **Deploy from a branch**;
-   *Branch*: **main** y **/ (root)** → **Save**.
-5. Esperar entre 1 y 10 minutos y abrir <https://jbflormalatesta.github.io/?A-71>. Si aparece el
-   Tala, está funcionando. Probar también escaneando un QR del PDF con el celular.
+| Quiero… | Archivo | Qué tocar |
+|---|---|---|
+| Publicar un aviso (cierre por lluvia, Feria este sábado) | `datos/sitio.js` | `aviso`: `mostrar: true`, `tipo`, `texto` y, si querés, `hasta` |
+| Cambiar los horarios | `datos/sitio.js` | `horarios` |
+| Cambiar un formulario (visitas, Centinelas, Feria Verde) | `datos/sitio.js` | `enlaces` |
+| Cambiar correo o redes | `datos/sitio.js` | `contacto` (y el pie de cada página, que lo repite) |
+| Corregir el texto de una especie | `datos/especies.js` | buscar el código, por ejemplo `"A-71"` |
+| Decidir adónde lleva el QR de las fichas A5 | `datos/sitio.js` | `qrFichas`: `"ficha"` o `"linktree"` |
+| Subir fotos del sitio | `fotos/sitio/` | ver el README de esa carpeta |
+| Subir fotos de especies | `fotos/especies/` | `A-71-primavera.jpg`, etc. |
 
-Si GitHub pide activar la verificación en dos pasos, hacerlo con una app de códigos (por ejemplo
-Google Authenticator) en un celular del Jardín, y guardar los códigos de recuperación junto con la
-contraseña.
+Para editar un archivo: abrirlo en GitHub → lápiz (**Edit this file**) → cambiar → **Commit changes**.
+Los cambios se ven en el sitio en uno a diez minutos.
 
-## Corregir un texto
+**No se tocan:** `datos/direcciones.js` (el contrato de los QR impresos: solo se agregan códigos),
+`comun/`, `coleccion/coleccion.js` ni las páginas `index.html`, salvo para cambiar textos.
 
-1. Abrir `especies.js` y tocar el lápiz (**Edit this file**).
-2. Buscar el código con Ctrl+F (por ejemplo `"A-71"`) y cambiar el texto entre comillas.
-3. **Commit changes**. En unos minutos se ve en el sitio.
+## Estructura
 
-## Subir fotos de las cuatro estaciones
+```
+index.html            Portada (y enrutador de los QR impresos)
+visita/               Visitá el Jardín: horarios, cómo llegar, servicios, pautas, sectores
+coleccion/            La colección: listado y fichas (coleccion.js, coleccion.css)
+el-jardin/            El Jardín: historia, misión, institucional, contacto
+comun/                sitio.css (estilos y paleta) y sitio.js (aviso, horarios, enlaces)
+datos/                sitio.js, especies.js y direcciones.js
+img/                  logos, íconos e imagen para compartir
+fotos/sitio/          fotos de las páginas
+fotos/especies/       fotos de las cuatro estaciones
+404.html              lleva …/A-71 (sin «?») a la ficha; cualquier otra dirección, a la portada
+MIGRACION.md          guía para el área de Sistemas
+```
 
-- Nombre exacto, en minúsculas salvo la letra del código: `A-71-primavera.jpg`,
-  `A-71-verano.jpg`, `A-71-otono.jpg` (sin tilde) y `A-71-invierno.jpg`.
-- Formato .jpg, con el lado mayor de unos 1200 píxeles (las fotos del celular pesan mucho:
-  achicarlas antes, por ejemplo en <https://squoosh.app>).
-- Entrar a la carpeta `fotos` → **Add file** → **Upload files** → arrastrar las fotos →
-  **Commit changes**. Se pueden subir hasta 100 archivos por vez.
-- Aparecen solas en la ficha de esa especie: no hace falta tocar ningún otro archivo.
+Cada página tiene escrita su cabecera y su pie. Si se agrega una sección, se suma el enlace en la
+navegación de **todas** las páginas.
 
-## Opciones (al principio de `especies.js`)
+## Contrato de direcciones (QR impresos)
 
-- `qrFichas: "ficha"`: el QR de las fichas A5 abre la página de la especie. Con `"linktree"`,
-  lleva al Linktree del Jardín. Se cambia sin tocar los PDF.
-- `oculta: true`: la ficha no aparece en el listado y su página dice «Ficha en revisión».
-  Hoy está así H-07 (amapola), en espera por la ley 21.671.
-- `ubicacion: "reservada"`: no se publica dónde está la planta. Hoy: H-57 y H-58, orquídeas
-  nativas sensibles a la recolección.
+| Código | Pieza | Adónde lleva hoy |
+|---|---|---|
+| `?A-01` … `?A-76`, `?H-01` … `?H-83` | Etiquetas D1 de especie | Ficha de la especie |
+| `?A-01&f` … `?H-83&f` | Fichas A5 D2 | Ficha de la especie (o Linktree, según `qrFichas`) |
+| `?acceso` | A1 · Cartel de acceso | Visitá el Jardín |
+| `?S-01` … `?S-06` | C1 · Carteles de sector | El sector, en Visitá el Jardín |
+| `?P-01` | C2 · Panel Mariposario nativo | El panel, en Visitá el Jardín |
+| `?P-02` | C2 · Panel Centinelas de Nativas | Centinelas, en la portada |
+| `?T-01`, `?T-02` | B1 · Tótems direccionales | Los sectores, en Visitá el Jardín |
 
-## Qué hay en cada archivo
+Sectores: S-01 Talar bonaerense · S-02 Vivero de nativas · S-03 Huerta agroecológica · S-04 Estanque ·
+S-05 Aromáticas y medicinales · S-06 Compostera.
 
-- `index.html`: la página (diseño y funcionamiento). No hace falta tocarlo.
-- `especies.js`: los textos de las 156 fichas y las opciones.
-- `404.html`: si alguien escribe `…github.io/A-71` sin el signo `?`, lo lleva igual a la ficha.
-- `img/`: logo, íconos e imagen para cuando se comparte el enlace.
-- `fotos/`: las fotos de las cuatro estaciones.
+## Copia de prueba
+
+Los cambios grandes se prueban primero en el repositorio `pruebas` (se ve en
+`https://jbflormalatesta.github.io/pruebas/`). Sus páginas llevan una línea `noindex` para que los
+buscadores no la muestren; al pasar a este repositorio, esa línea se quita.
