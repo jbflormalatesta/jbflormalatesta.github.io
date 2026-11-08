@@ -31,6 +31,14 @@ window.RECURSOS = [
         peso: "0,7 MB",
         fecha: "Noviembre de 2026",
       },
+      {
+        titulo: "Tríptico del Jardín",
+        descripcion: "Qué es el Jardín, horarios, cómo llegar, los seis sectores, Centinelas de Nativas y la Feria Verde. Una hoja A4 para imprimir de los dos lados y plegar en tres.",
+        archivo: "archivos/2026-11_Triptico_JardinBotanico.pdf",
+        formato: "PDF",
+        peso: "0,9 MB",
+        fecha: "Noviembre de 2026",
+      },
     ],
   },
 
@@ -44,6 +52,42 @@ window.RECURSOS = [
         formato: "PDF",
         peso: "0,7 MB",
         fecha: "Junio de 2026",
+      },
+      {
+        titulo: "Árboles y arbustos nativos: flor y época de colecta",
+        descripcion: "Cuándo florecen y cuándo maduran los frutos de 54 árboles y arbustos nativos de la región, para saber en qué época colectar semillas. Una hoja A4.",
+        archivo: "archivos/2026-11_Tabla_ArboreasFlorYColecta.pdf",
+        formato: "PDF",
+        peso: "0,2 MB",
+        fecha: "Noviembre de 2026",
+      },
+    ],
+  },
+
+  {
+    grupo: "Centinelas de Nativas",
+    items: [
+      {
+        titulo: "Bitácora de observación",
+        descripcion: "Para las instituciones del programa: ficha del ejemplar, registro quincenal para fotocopiar, resumen del año y guía para observar y cuidar. Cuatro hojas A4.",
+        archivo: "archivos/2026-11_Bitacora_CentinelasNativas.pdf",
+        formato: "PDF",
+        peso: "0,5 MB",
+        fecha: "Noviembre de 2026",
+      },
+    ],
+  },
+
+  {
+    grupo: "Para hacer en casa",
+    items: [
+      {
+        titulo: "Compostá en casa",
+        descripcion: "Qué va y qué no va a la compostera, el paso a paso y cómo resolver los problemas más comunes. Una hoja A4 para imprimir de los dos lados y plegar en tres.",
+        archivo: "archivos/2026-11_Folleto_Compost.pdf",
+        formato: "PDF",
+        peso: "0,3 MB",
+        fecha: "Noviembre de 2026",
       },
     ],
   },

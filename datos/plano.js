@@ -39,6 +39,8 @@ window.PLANO = {
     { codigo: "P-02", tipo: "panel", nombre: "Panel Centinelas de Nativas", col: null, fila: null },
     { codigo: "T-01", tipo: "totem", nombre: "Tótem direccional 1", col: null, fila: null },
     { codigo: "T-02", tipo: "totem", nombre: "Tótem direccional 2", col: null, fila: null },
+    // CARTEL CON EL PLANO (A2), apenas se entra por el portón doble. Tampoco se dibuja: su QR marca «Estás acá».
+    { codigo: "cartel-plano", tipo: "totem", nombre: "Cartel con el plano, junto al portón de entrada", col: 3, fila: 21 },
 
     // SERVICIOS
     { codigo: "banos", tipo: "servicio", icono: "banos", nombre: "Baños mixtos y accesibles",
