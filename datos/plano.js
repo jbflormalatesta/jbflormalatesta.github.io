@@ -17,8 +17,33 @@
  *
  * Cambiá solo los números (o null) y los textos entre comillas, y no borres las comas del final.
  * NO se publica la ubicación de especies sensibles a la recolección (por ejemplo, las orquídeas).
+ *
+ * CARTELERÍA: «pieza» es el tipo de cartel (A1, A2, B1, B2, C1, C2) y «qr» el código que trae su QR
+ * (jbflormalatesta.github.io/?plano, ?T-01…). Los carteles de sector (C1) llevan el QR de su sector.
+ * Los recorridos sugeridos están en datos/recorridos.js; las especies de cada sector, en datos/mes-a-mes.js.
+ * Las medidas de los árboles para el modelo 3D están en datos/arboles.js.
  */
 window.PLANO = {
+
+  // NORTE DEL PLANO: cuántos grados hay que girar «arriba» del plano, en el sentido de las agujas del reloj,
+  //   para apuntar al norte. 45 = el norte apunta a la esquina de la Ruta 40 y la calle Gral. Bosch.
+  //   El equipo lo midió con Google Maps (entre 40 y 45); falta confirmarlo con brújula.
+  //   De este número dependen la flecha del norte del plano y el recorrido del sol en el modelo 3D.
+  norte: 45,
+
+  // MODELO 3D (pestaña «Modelo 3D y sol»): lo que no sale del relevamiento, que es en planta.
+  //   sitio:      latitud y longitud del Jardín (grados decimales) y diferencia con la hora universal (UTC−3).
+  //   estanque:   el espejo de agua no figura en el relevamiento. Va dibujado en forma APROXIMADA sobre la marca
+  //               del sector: col y fila del centro, largo y ancho en metros y giro en grados. null = no se dibuja.
+  //   sombraculo: col y fila de un punto que esté dentro del sombráculo; la estructura del relevamiento que lo
+  //               contiene se dibuja con postes y media sombra. null = no se dibuja como sombráculo.
+  //   alturas:    alto en metros de las construcciones. Son estimados: cambiarlos si se miden.
+  modelo3d: {
+    sitio: { lat: -34.80, lng: -58.85, utc: -3 },
+    estanque: { col: 41, fila: 38, largo: 7, ancho: 3, giro: 0 },                 // aproximado: falta confirmar lugar y tamaño
+    sombraculo: { col: 38.5, fila: 6.5 },                                         // a confirmar: estructura de 31 m² junto al invernadero chico
+    alturas: { edificioPrincipal: 3.6, edificacionGrande: 4.5, edificacionChica: 3, invernaderoGrande: 3, invernaderoChico: 2.6, sombraculo: 2.4 },
+  },
 
   lugares: [
     // SECTORES (carteles C1). En el plano llevan el número del código: S-01 → 1.
@@ -33,16 +58,27 @@ window.PLANO = {
     { codigo: "inv-chico", tipo: "referencia", letra: "a", nombre: "Invernadero chico (en mantenimiento)", col: 41, fila: 6 },
     { codigo: "palets", tipo: "referencia", letra: "b", nombre: "Ejemplares grandes sobre palets", col: 31, fila: 6 },
 
-    // PANELES INTERPRETATIVOS (C2): todavía no están instalados. Cuando estén, se cargan col y fila.
-    { codigo: "P-01", tipo: "panel", nombre: "Panel Mariposario nativo", col: null, fila: null },
-    { codigo: "P-02", tipo: "panel", nombre: "Panel Centinelas de Nativas", col: null, fila: null },
+    // PANELES INTERPRETATIVOS (C2): todavía no están instalados. Ubicación proyectada aprobada el 14/11/2026, sobre el borde
+    // del sendero. «proyectado: true» = el plano aclara que el panel todavía no está. Al instalarlos: ajustar col y fila si
+    // hace falta y cambiar proyectado a false.
+    { codigo: "P-01", tipo: "panel", pieza: "C2", qr: "P-01", nombre: "Panel Mariposario nativo", nota: "Junto al sector de Aromáticas y medicinales",
+      proyectado: true, col: 20.5, fila: 49.5 },
+    { codigo: "P-02", tipo: "panel", pieza: "C2", qr: "P-02", nombre: "Panel Centinelas de Nativas", nota: "En el borde de la plazoleta, junto al tótem T-02",
+      proyectado: true, col: 17, fila: 26.5 },
     // TÓTEMS DIRECCIONALES (B1): ubicación validada por el Jardín el 09/11/2026. No se dibujan: con su QR,
     // el plano marca «Estás acá». Las lamas B2 no llevan QR: Col 22 · Fila 31 (Estanque), Col 22 · Fila 16
     // (Vivero, huerta y compostera) y en el dorso del T-01 (Baños y salida).
-    { codigo: "T-01", tipo: "totem", nombre: "Tótem de la entrada", col: 6, fila: 23 },
-    { codigo: "T-02", tipo: "totem", nombre: "Tótem de la plazoleta", col: 20, fila: 26 },
+    { codigo: "T-01", tipo: "totem", pieza: "B1", qr: "T-01", nombre: "Tótem de la entrada", col: 6, fila: 23 },
+    { codigo: "T-02", tipo: "totem", pieza: "B1", qr: "T-02", nombre: "Tótem de la plazoleta", col: 20, fila: 26 },
     // CARTEL CON EL PLANO (A2), apenas se entra por el portón doble. Tampoco se dibuja: su QR marca «Estás acá».
-    { codigo: "cartel-plano", tipo: "totem", nombre: "Cartel con el plano, junto al portón de entrada", col: 3, fila: 21 },
+    { codigo: "cartel-plano", tipo: "totem", pieza: "A2", qr: "plano", nombre: "Cartel con el plano, junto al portón de entrada", col: 3, fila: 21 },
+    // CARTEL DE ACCESO (A1), en la tranquera de la Ruta 40. «ruta»: para llegar se sale por la calle interna.
+    { codigo: "A1", tipo: "cartel", pieza: "A1", qr: "acceso", nombre: "Cartel de acceso", nota: "En la tranquera de la Ruta 40",
+      ruta: "ingreso", col: 1, fila: 68 },
+    // LAMAS DIRECCIONALES (B2), sin QR. «en»: va en el mismo lugar que otra pieza.
+    { codigo: "L-01", tipo: "lama", pieza: "B2", nombre: "Lamas direccionales hacia el Estanque", col: 22, fila: 31 },
+    { codigo: "L-02", tipo: "lama", pieza: "B2", nombre: "Lamas direccionales hacia el Vivero, la Huerta y la Compostera", col: 22, fila: 16 },
+    { codigo: "L-03", tipo: "lama", pieza: "B2", nombre: "Lamas direccionales hacia los Baños y la salida", nota: "En el dorso del tótem de la entrada", en: "T-01" },
 
     // SERVICIOS
     { codigo: "banos", tipo: "servicio", icono: "banos", nombre: "Baños mixtos y accesibles",
